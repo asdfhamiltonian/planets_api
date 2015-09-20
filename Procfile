@@ -1,1 +1,1 @@
-web: python dealscraper/planets_api.py
+web: python planets_api.py
