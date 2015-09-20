@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request
 from flask_restful import Resource, Api
 from planets import Planets
@@ -36,4 +37,5 @@ api.add_resource(RiseSet, '/RiseSet/<string:latitude>/<string:longitude>/<string
 api.add_resource(PositionNow, '/PositionNow/<string:latitude>/<string:longitude>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
