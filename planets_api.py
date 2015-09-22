@@ -13,8 +13,8 @@ class RiseSet(Resource):
         longitude = float(longitude)
         timezone = float(timezone)
         location = Planets(latitude, longitude)
-        riseSetString = location.allRiseSet(-7)
-        return {'Rise/Set Times': riseSetString}
+        riseSetDict = location.dictRiseSet(-7)
+        return riseSetDict
 
 class PositionNow(Resource):
     def get(self, latitude, longitude):

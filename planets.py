@@ -6,7 +6,6 @@ import datetime
 #Programmed with algorithms/equations from page "How to Compute Planetary Positions"
 #by Paul Schlyter http://www.stjarnhimlen.se/comp/ppcomp.html#20
 
-
 def degrees(rads):
         return (rads/pi)*180
 
@@ -527,8 +526,8 @@ class Planets(object):
         dec = positionArray[4]
         rve = positionArray[5]
 
-        """#light travels 1au in 499 seconds, can use this to calc position
-        #more accurately
+        """failed attempt to account for relativity
+        --not super important compared to other sources of error
 
         reldiff = rve * 499
         dvenus = d - reldiff/(3600*24)
@@ -1191,5 +1190,28 @@ class Planets(object):
             riseSetString += a
 
         return riseSetString
+        
+    def dictRiseSet(self, utcdis):
+        risesets = [
+        self.calcMercuryRiseSet(utcdis),
+        self.calcVenusRiseSet(utcdis),
+        self.calcMarsRiseSet(utcdis),
+        self.calcJupiterRiseSet(utcdis),
+        self.calcSaturnRiseSet(utcdis),
+        self.calcUranusRiseSet(utcdis),
+        self.calcNeptuneRiseSet(utcdis),
+        self.calcPlutoRiseSet(utcdis),
+        ]
+        planetnames = ["mercury", "venus", "mars", "jupiter",
+        "saturn", "uranus", "neptune", "pluto",
+        ]
+        planetDict = {}
+        for num in range(0, 8):
+            data = risesets[num]
+            subdict = {}
+            subdict["rise"] = data[0]
+            subdict["set"] = data[1]
+            planetDict[planetnames[num]] = subdict
+        return planetDict
         
         
