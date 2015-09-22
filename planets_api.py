@@ -2,6 +2,7 @@ import os
 from flask import Flask, request
 from flask_restful import Resource, Api
 from planets import Planets
+from collections import OrderedDict
 
 app = Flask(__name__)
 api = Api(app)
@@ -22,7 +23,7 @@ class PositionNow(Resource):
         latitude = float(latitude)
         longitude = float(longitude)
         location = Planets(latitude, longitude)
-        now = {}
+        now = OrderedDict()
         now["Venus"] = location.calcVenusNow()
         now["Mercury"] = location.calcMercuryNow()
         now["Mars"] = location.calcMarsNow()

@@ -1,6 +1,7 @@
 from math import *
 from functools import partial
 import datetime
+from collections import OrderedDict
 
 #Planetary positions calculator
 #Programmed with algorithms/equations from page "How to Compute Planetary Positions"
@@ -1205,7 +1206,7 @@ class Planets(object):
         planetnames = ["mercury", "venus", "mars", "jupiter",
         "saturn", "uranus", "neptune", "pluto",
         ]
-        planetDict = {}
+        planetDict = OrderedDict()
         for num in range(0, 8):
             data = risesets[num]
             subdict = {}
