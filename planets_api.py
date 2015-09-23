@@ -37,28 +37,35 @@ class PositionNow(Resource):
         return now
 
 class Moon(Resource):
-    def get(self, latitude, longitude):
+    def get(self, latitude, longitude, timezone):
         #flask can't handle negative number input so had to convert from strings
         latitude = float(latitude)
         longitude = float(longitude)
+        timezone = float(timezone)
         location = Luna(latitude, longitude)
-        location.now()
-        moonList = location.list()
+        moonList = location.now()
         moonDict = OrderedDict()
-        moonDict["day"] = moonList[0]
-        moonDict["right ascension"] = moonList[1]
-        moonDict["declination"] = moonList[2]
-        moonDict["latitude"] = moonList[3]
-        moonDict["longitude"] = moonList[4]
-        moonDict["azimuth"] = moonList[5]
-        moonDict["altitude"] = moonList[6]
-        moonDict["phase"] = moonList[7]
-        moonDict["mean right ascension"] = moonList[8]
+        moonDict["azimuth"] = moonList[0]
+        moonDict["altitude"] = moonList[1]
+        moonDict["right ascension"] = moonList[2]
+        moonDict["declination"] = moonList[3]
+        moonDict["phase"] = moonList[4]
+        moonDict["topocentric right ascension"] = moonList[5]
+        moonDict["topocentric declination"] = moonList[6]
+        moonDict["mpar"] = moonList[7]
+        moonDict["msd"] = moonList[8]
+        moonDict["longitude degrees"] = moonList[9]
+        moonDict["latitude degrees"] = moonList[10]
+        moonDict["gmsto"] = moonList[11]
+        moonDict["epoch day"] = moonList[12]
+        moonDict["riseset1"] = location.risesetlist(1, timezone)[0:3]
+        moonDict["riseset2"] = location.risesetlist(2, timezone)[0:3]
+        moonDict["riseset3"] = location.risesetlist(3, timezone)[0:3]
         return moonDict
 
 api.add_resource(RiseSet, '/RiseSet/<string:latitude>/<string:longitude>/<string:timezone>')
 api.add_resource(PositionNow, '/PositionNow/<string:latitude>/<string:longitude>')
-api.add_resource(Moon, '/Moon/<string:latitude>/<string:longitude>')
+api.add_resource(Moon, '/Moon/<string:latitude>/<string:longitude>/<string:timezone>')
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
