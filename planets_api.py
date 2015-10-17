@@ -6,12 +6,14 @@ from collections import OrderedDict
 from planets import *
 from luna import *
 
+
 app = Flask(__name__)
 api = Api(app)
 
+
 class RiseSet(Resource):
     def get(self, latitude, longitude, timezone):
-        #flask can't handle negative number input so had to convert from strings
+        # flask can't handle negative numbers so converted from string
         latitude = float(latitude)
         longitude = float(longitude)
         timezone = float(timezone)
@@ -19,9 +21,10 @@ class RiseSet(Resource):
         riseSetDict = location.dictRiseSet(-7)
         return riseSetDict
 
+
 class PositionNow(Resource):
     def get(self, latitude, longitude):
-        #flask can't handle negative number input so had to convert from strings
+        # flask can't handle negative numbers so converted from string
         latitude = float(latitude)
         longitude = float(longitude)
         location = Planets(latitude, longitude)
@@ -36,9 +39,10 @@ class PositionNow(Resource):
         now["pluto"] = location.calcPlutoThatIsNotAPlanetNow()
         return now
 
+
 class Moon(Resource):
     def get(self, latitude, longitude, timezone):
-        #flask can't handle negative number input so had to convert from strings
+        # flask can't handle negative numbers so converted from string
         latitude = float(latitude)
         longitude = float(longitude)
         timezone = float(timezone)
